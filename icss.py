@@ -11,9 +11,44 @@ class ChangePoints:
         first = st
         last = en
 
-        [M_value, loc] = calculate_M(first, last)
-    
-    def calcuate_M(self, st, en):
+        [M_value, loc] = self.calculate_M(first, last)
+        tmp_loc = loc
+
+        if M_value >= D_star:
+            #step 2a
+            last = loc + 1
+            while True:
+                [M_value, loc] = self.calculate_M(first, last)
+                if M_value < D_star:
+                    break
+                else:
+                    last = loc + 1
+            kfirst = last
+            
+            #step 2b
+            first = tmp_loc + 1
+            last = en
+            while True:
+                [M_value, loc] = self.calculate_M(first, last)
+                if M_value < D_star:
+                    break
+                else:
+                    frist = loc + 1
+            klast = first - 1
+
+            #step 2c
+            if kfirst == klast:
+                self.num_of_cp += 1
+                self.cp.append(kfirst)
+            else:
+                self.num_of_cp += 1
+                self.cp.append(kfirst)
+                self.num_of_cp += 1
+                self.cp.append(klast)
+                ICSS(kfrist + 1, klast + 1, D_Star)
+
+
+    def calculate_M(self, st, en):
         sub_series = self.series[st:en]
         len = en - st
 
