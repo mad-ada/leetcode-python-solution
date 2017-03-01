@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 
 class ChangePoints:
-    def __init__(self, series, cp=None, num_of_cp=0, D_star):
+    def __init__(self, series, D_star, cp=None, num_of_cp=0):
         self.series = series
+        self.D_star = D_star
         self.cp = []
         self.num_of_cp = 0
-        self.D_star = D_star
 
     def ICSS(self, st, en):
         first = st
@@ -20,7 +20,7 @@ class ChangePoints:
             last = loc + 1
             while True:
                 [M_value, loc] = self.calculate_M(first, last)
-                if M_value < D_star:
+                if M_value < self.D_star:
                     break
                 else:
                     last = loc + 1
@@ -31,7 +31,7 @@ class ChangePoints:
             last = en
             while True:
                 [M_value, loc] = self.calculate_M(first, last)
-                if M_value < D_star:
+                if M_value < self.D_star:
                     break
                 else:
                     frist = loc + 1
