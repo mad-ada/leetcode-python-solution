@@ -110,3 +110,11 @@ class ChangePoints:
         idx = np.argmax(tmp)
         loc = st + idx
         return [M_value, loc]
+    #temp
+    def fourier_transform(series):
+        f, Pxx_den = signal.periodogram(series)
+        df = pd.DataFrame(data=f, index=Pxx_den)
+        df.sort_index(ascending=False, inplace=True)
+        top2 = df.head(n=2)
+        period = np.min(1.0/top2[:])
+    return period
